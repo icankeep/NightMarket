@@ -1,0 +1,32 @@
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: utf-8
+  servlet:
+    session:
+      timeout: 30m
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    cache: false
+  datasource:
+    username: root
+    password: admin
+    url: jdbc:mysql://localhost:3306/night_market?characterEncoding=utf8&serverTimezone=UTC&useUnicode=true&useSSL=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    max-idle: 10
+    max-wait: 10000
+    min-idle: 5
+    initial-size: 5
+
+#mybatis:
+#  mapper-locations: classpath:mapper/*.xml
+#  type-aliases-package: com.docstorm.documentstormcommon.domain
+
+###showSql
+#logging:
+#  level:
+#    root: debug

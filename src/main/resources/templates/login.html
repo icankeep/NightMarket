@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html>
+
+<head xmlns:th="http://www.thymeleaf.org">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>登录</title>
+    <link rel="stylesheet" th:href="@{/common/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/admin/css/login.css}"/>
+    <script type="text/javascript" th:src="@{/common/layui/layui.js}"></script>
+</head>
+
+<body class="beg-login-bg">
+<div class="beg-login-box">
+    <header>
+        <h1>后台登录</h1>
+    </header>
+    <div class="beg-login-main">
+        <form action="/login/submit" class="layui-form" method="post" id="form">
+            <div class="layui-form-item">
+                <label class="beg-login-icon">
+                    <i class="layui-icon">&#xe612;</i>
+                </label>
+                <input type="text" name="nickname" lay-verify="userName" id="nickname" placeholder="这里输入登录名"
+                       class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <label class="beg-login-icon">
+                    <i class="layui-icon">&#xe642;</i>
+                </label>
+                <input type="password" name="password" lay-verify="password" id="password" placeholder="这里输入密码"
+                       class="layui-input">
+            </div>
+
+            <div class="layui-form-item">
+                <div class="beg-pull-left beg-login-remember">
+                    <label>管理员登陆？</label>
+                    <input type="checkbox" name="isAdmin" value="true" lay-skin="switch" checked title="管理员登陆">
+                </div>
+                <div class="beg-pull-right beg-login-remember">
+                    <a href="/register" style="color:aliceblue">注册新用户</a>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="beg-pull-right" style="position: absolute;left: 80px;height: 36px;">
+                    <button class="layui-btn layui-btn-primary" type="button" onclick="formCheck()">
+                        <i class="layui-icon">&#xe650;</i> 登录
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <footer>
+        <p>passer © Night Market Management</p>
+    </footer>
+</div>
+<script>
+    layui.use(['layer', 'form'], function () {
+        var layer = layui.layer,
+            $ = layui.jquery,
+            form = layui.form();
+
+        form.on('submit(login)', function (data) {
+            location.href = '/';
+            return false;
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    function formCheck() {
+        var nickname = document.getElementById('nickname');
+        var password = document.getElementById('password');
+        if (nickname.value.length == 0 || nickname.value.length > 50) {
+            alert("请输入正确长度的昵称(4~50位字符)！");
+        } else if (password.value.length < 6 || password.value.length > 50) {
+            alert("请输入正确长度的密码(6~50位字符)！");
+        } else {
+            var form = document.getElementById("form");
+            form.submit();
+        }
+    }
+</script>
+</body>
+
+</html>

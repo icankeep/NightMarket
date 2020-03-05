@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.StallDao">
+  <resultMap id="BaseResultMap" type="generator.Stall">
+    <id column="stall_id" jdbcType="INTEGER" property="stallId" />
+    <result column="stall_name" jdbcType="VARCHAR" property="stallName" />
+    <result column="stall_address" jdbcType="VARCHAR" property="stallAddress" />
+    <result column="stall_info" jdbcType="VARCHAR" property="stallInfo" />
+    <result column="stall_rent" jdbcType="DECIMAL" property="stallRent" />
+    <result column="is_rented" jdbcType="BIT" property="isRented" />
+    <result column="rented_time" jdbcType="TIMESTAMP" property="rentedTime" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    stall_id, stall_name, stall_address, stall_info, stall_rent, is_rented, rented_time, 
+    user_id, user_nickname
+  </sql>
+  <select id="selectByExample" parameterType="generator.StallExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stall
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+    <if test="forUpdate != null and forUpdate == true">
+      for update
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from stall
+    where stall_id = #{stallId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from stall
+    where stall_id = #{stallId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="generator.StallExample">
+    delete from stall
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="stall_id" keyProperty="stallId" parameterType="generator.Stall" useGeneratedKeys="true">
+    insert into stall (stall_name, stall_address, stall_info, 
+      stall_rent, is_rented, rented_time, 
+      user_id, user_nickname)
+    values (#{stallName,jdbcType=VARCHAR}, #{stallAddress,jdbcType=VARCHAR}, #{stallInfo,jdbcType=VARCHAR}, 
+      #{stallRent,jdbcType=DECIMAL}, #{isRented,jdbcType=BIT}, #{rentedTime,jdbcType=TIMESTAMP}, 
+      #{userId,jdbcType=INTEGER}, #{userNickname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="stall_id" keyProperty="stallId" parameterType="generator.Stall" useGeneratedKeys="true">
+    insert into stall
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stallName != null">
+        stall_name,
+      </if>
+      <if test="stallAddress != null">
+        stall_address,
+      </if>
+      <if test="stallInfo != null">
+        stall_info,
+      </if>
+      <if test="stallRent != null">
+        stall_rent,
+      </if>
+      <if test="isRented != null">
+        is_rented,
+      </if>
+      <if test="rentedTime != null">
+        rented_time,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userNickname != null">
+        user_nickname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stallName != null">
+        #{stallName,jdbcType=VARCHAR},
+      </if>
+      <if test="stallAddress != null">
+        #{stallAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="stallInfo != null">
+        #{stallInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="stallRent != null">
+        #{stallRent,jdbcType=DECIMAL},
+      </if>
+      <if test="isRented != null">
+        #{isRented,jdbcType=BIT},
+      </if>
+      <if test="rentedTime != null">
+        #{rentedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userNickname != null">
+        #{userNickname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="generator.StallExample" resultType="java.lang.Long">
+    select count(*) from stall
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update stall
+    <set>
+      <if test="record.stallId != null">
+        stall_id = #{record.stallId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stallName != null">
+        stall_name = #{record.stallName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stallAddress != null">
+        stall_address = #{record.stallAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stallInfo != null">
+        stall_info = #{record.stallInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stallRent != null">
+        stall_rent = #{record.stallRent,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isRented != null">
+        is_rented = #{record.isRented,jdbcType=BIT},
+      </if>
+      <if test="record.rentedTime != null">
+        rented_time = #{record.rentedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userNickname != null">
+        user_nickname = #{record.userNickname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update stall
+    set stall_id = #{record.stallId,jdbcType=INTEGER},
+      stall_name = #{record.stallName,jdbcType=VARCHAR},
+      stall_address = #{record.stallAddress,jdbcType=VARCHAR},
+      stall_info = #{record.stallInfo,jdbcType=VARCHAR},
+      stall_rent = #{record.stallRent,jdbcType=DECIMAL},
+      is_rented = #{record.isRented,jdbcType=BIT},
+      rented_time = #{record.rentedTime,jdbcType=TIMESTAMP},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      user_nickname = #{record.userNickname,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="generator.Stall">
+    update stall
+    <set>
+      <if test="stallName != null">
+        stall_name = #{stallName,jdbcType=VARCHAR},
+      </if>
+      <if test="stallAddress != null">
+        stall_address = #{stallAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="stallInfo != null">
+        stall_info = #{stallInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="stallRent != null">
+        stall_rent = #{stallRent,jdbcType=DECIMAL},
+      </if>
+      <if test="isRented != null">
+        is_rented = #{isRented,jdbcType=BIT},
+      </if>
+      <if test="rentedTime != null">
+        rented_time = #{rentedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userNickname != null">
+        user_nickname = #{userNickname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stall_id = #{stallId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="generator.Stall">
+    update stall
+    set stall_name = #{stallName,jdbcType=VARCHAR},
+      stall_address = #{stallAddress,jdbcType=VARCHAR},
+      stall_info = #{stallInfo,jdbcType=VARCHAR},
+      stall_rent = #{stallRent,jdbcType=DECIMAL},
+      is_rented = #{isRented,jdbcType=BIT},
+      rented_time = #{rentedTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
+      user_nickname = #{userNickname,jdbcType=VARCHAR}
+    where stall_id = #{stallId,jdbcType=INTEGER}
+  </update>
+</mapper>

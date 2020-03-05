@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head xmlns:th="http://www.thymeleaf.org">
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>注册页</title>
+	<link rel="stylesheet" th:href="@{/common/bootstrap/css/bootstrap.css}">
+	<script type="text/javascript" th:src="@{/common/bootstrap/js/bootstrap.js}"></script>
+</head>
+
+<body style="background-color: #444444">
+	<div class="jumbotron" style="width:400px;margin:0 auto;">
+		<h2 style="text-align: center;margin-top: -25px;margin-bottom: 20px">用户注册</h2>
+		<form action="/register/submit" method="post" style="padding: 0px 50px" id="form">
+			<div class="form-group">
+				<label for="nickname">请输入您的昵称</label>
+				<input type="text" class="form-control" id="nickname" name="nickname" aria-describedby="notice" placeholder="nickname">
+				<small id="notice" class="form-text text-muted">Please choose a unique nickname.</small>
+			</div>
+			<div class="form-group">
+					<label for="realName">真实姓名</label>
+					<input type="text" class="form-control" id="realName" name="realName" placeholder="real name">
+				</div>
+			<div class="form-group">
+					<label for="address">地址</label>
+					<input type="text" class="form-control" id="address" name="address" placeholder="北京市海淀区xxx">
+			</div>
+			<div class="form-group">
+				<label for="password1">请输入您的密码</label>
+				<input type="password" class="form-control" id="password1" name="password1" placeholder="password">
+			</div>
+			<div class="form-group">
+				<label for="password2">请确认您的密码</label>
+				<input type="password" class="form-control" id="password2" name="password2" placeholder="confirm your password">
+			</div>
+			<div class="form-group">
+				<label for="phoneNumber">手机号</label>
+				<input type="number" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="phoneNumber">
+			</div>
+			<div class="form-group">
+				<label for="userType">用户类型选择</label>
+				<select class="form-control" id="userType" name="userType">
+				  <option value="0">摊位租户</option>
+				  <option value="1">管理员</option>
+				</select>
+			</div>
+			<button type="button" class="btn btn-primary" style="margin-top:8px" onclick="formCheck()">提交信息</button>
+		</form>
+	</div>
+	<script type="text/javascript">
+		function formCheck() {
+			var nickname = document.getElementById('nickname');
+			var realName = document.getElementById('realName');
+			var address = document.getElementById('address');
+			var password1 = document.getElementById('password1');
+			var password2 = document.getElementById('password2');
+			var phoneNumber = document.getElementById('phoneNumber');
+			if (nickname.value.length == 0 || nickname.value.length > 50) {
+				alert("请输入正确长度的昵称(4~50位字符)！");
+			} else if (realName.value.length == 0 || realName.value.length > 30) {
+				alert("请输入正确长度的真实姓名！");
+			} else if (address.value.length > 200) {
+				alert("请输入正确长度的地址(小于200字符！)");
+			} else if(password1.value.length < 6 || password1.value.length > 50 || password2.value.length == 0 || password2.value.length > 50) {
+				alert("请输入正确长度的密码(6~50位字符)！");
+			} else if (password1.value != password2.value) {
+				alert("两次密码不一致！");
+			} else if (phoneNumber.value.length != 11) {
+				alert("请输入正确格式的手机号！");
+			} else {
+				var form = document.getElementById("form");
+				form.submit();
+			}
+ 		}
+	</script>
+</body>
+</html>

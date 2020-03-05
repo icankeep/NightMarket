@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head xmlns:th="http://www.thymeleaf.org">
+    <meta charset="UTF-8">
+    <title>搜索用户</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" th:href="@{/common/layui/css/layui.css}" media="all">
+    <link rel="stylesheet" type="text/css" th:href="@{/common/bootstrap/css/bootstrap.css}" media="all">
+    <link rel="stylesheet" type="text/css" th:href="@{/common/global.css}" media="all">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/personal.css}" media="all">
+    <script type="text/javascript" th:src="@{/common/bootstrap/js/bootstrap.js}"></script>
+    <script type="text/javascript" th:src="@{/common/layui/layui.js}"></script>
+</head>
+<body>
+<section class="layui-larry-box" style="width: 650px">
+    <div class="larry-personal">
+        <header class="larry-personal-tit">
+            <span>搜索管理员或摊位进行选择</span>
+        </header><!-- /header -->
+        <p style="color:red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)} "></p>
+        <div class="larry-personal-body clearfix">
+            <form action="/search/user" method="post">
+                <div class="form-group">
+                    <label>请输入管理员昵称(不支持模糊搜索)</label>
+                    <input class="form-control" type="text" name="nickname">
+                </div>
+                <div class="form-group">
+                    <button class="form-control" type="submit" style="width: 150px">立即搜索</button>
+                </div>
+            </form>
+            <!--<form action="/search/stall" method="post">
+                <div class="form-group">
+                    <label>请输入摊位名(不支持模糊搜索)</label>
+                    <input class="form-control" type="text" name="stallName">
+                </div>
+                <div class="form-group">
+                    <button class="form-control" type="submit" style="width: 150px">立即搜索</button>
+                </div>
+            </form>-->
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.UserPayDao">
+  <resultMap id="BaseResultMap" type="generator.UserPay">
+    <id column="pay_id" jdbcType="INTEGER" property="payId" />
+    <result column="pay_user_id" jdbcType="INTEGER" property="payUserId" />
+    <result column="pay_money" jdbcType="DECIMAL" property="payMoney" />
+    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="pay_comment" jdbcType="VARCHAR" property="payComment" />
+    <result column="income_user_id" jdbcType="INTEGER" property="incomeUserId" />
+    <result column="pay_user_nickname" jdbcType="VARCHAR" property="payUserNickname" />
+    <result column="income_user_nickname" jdbcType="VARCHAR" property="incomeUserNickname" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    pay_id, pay_user_id, pay_money, pay_time, pay_comment, income_user_id, pay_user_nickname, 
+    income_user_nickname
+  </sql>
+  <select id="selectByExample" parameterType="generator.UserPayExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_pay
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+    <if test="forUpdate != null and forUpdate == true">
+      for update
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_pay
+    where pay_id = #{payId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_pay
+    where pay_id = #{payId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="generator.UserPayExample">
+    delete from user_pay
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="pay_id" keyProperty="payId" parameterType="generator.UserPay" useGeneratedKeys="true">
+    insert into user_pay (pay_user_id, pay_money, pay_time, 
+      pay_comment, income_user_id, pay_user_nickname, 
+      income_user_nickname)
+    values (#{payUserId,jdbcType=INTEGER}, #{payMoney,jdbcType=DECIMAL}, #{payTime,jdbcType=TIMESTAMP}, 
+      #{payComment,jdbcType=VARCHAR}, #{incomeUserId,jdbcType=INTEGER}, #{payUserNickname,jdbcType=VARCHAR}, 
+      #{incomeUserNickname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="pay_id" keyProperty="payId" parameterType="generator.UserPay" useGeneratedKeys="true">
+    insert into user_pay
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="payUserId != null">
+        pay_user_id,
+      </if>
+      <if test="payMoney != null">
+        pay_money,
+      </if>
+      <if test="payTime != null">
+        pay_time,
+      </if>
+      <if test="payComment != null">
+        pay_comment,
+      </if>
+      <if test="incomeUserId != null">
+        income_user_id,
+      </if>
+      <if test="payUserNickname != null">
+        pay_user_nickname,
+      </if>
+      <if test="incomeUserNickname != null">
+        income_user_nickname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="payUserId != null">
+        #{payUserId,jdbcType=INTEGER},
+      </if>
+      <if test="payMoney != null">
+        #{payMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="payTime != null">
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payComment != null">
+        #{payComment,jdbcType=VARCHAR},
+      </if>
+      <if test="incomeUserId != null">
+        #{incomeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="payUserNickname != null">
+        #{payUserNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="incomeUserNickname != null">
+        #{incomeUserNickname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="generator.UserPayExample" resultType="java.lang.Long">
+    select count(*) from user_pay
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user_pay
+    <set>
+      <if test="record.payId != null">
+        pay_id = #{record.payId,jdbcType=INTEGER},
+      </if>
+      <if test="record.payUserId != null">
+        pay_user_id = #{record.payUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.payMoney != null">
+        pay_money = #{record.payMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payTime != null">
+        pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.payComment != null">
+        pay_comment = #{record.payComment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.incomeUserId != null">
+        income_user_id = #{record.incomeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.payUserNickname != null">
+        pay_user_nickname = #{record.payUserNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.incomeUserNickname != null">
+        income_user_nickname = #{record.incomeUserNickname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user_pay
+    set pay_id = #{record.payId,jdbcType=INTEGER},
+      pay_user_id = #{record.payUserId,jdbcType=INTEGER},
+      pay_money = #{record.payMoney,jdbcType=DECIMAL},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      pay_comment = #{record.payComment,jdbcType=VARCHAR},
+      income_user_id = #{record.incomeUserId,jdbcType=INTEGER},
+      pay_user_nickname = #{record.payUserNickname,jdbcType=VARCHAR},
+      income_user_nickname = #{record.incomeUserNickname,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="generator.UserPay">
+    update user_pay
+    <set>
+      <if test="payUserId != null">
+        pay_user_id = #{payUserId,jdbcType=INTEGER},
+      </if>
+      <if test="payMoney != null">
+        pay_money = #{payMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="payTime != null">
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payComment != null">
+        pay_comment = #{payComment,jdbcType=VARCHAR},
+      </if>
+      <if test="incomeUserId != null">
+        income_user_id = #{incomeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="payUserNickname != null">
+        pay_user_nickname = #{payUserNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="incomeUserNickname != null">
+        income_user_nickname = #{incomeUserNickname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pay_id = #{payId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="generator.UserPay">
+    update user_pay
+    set pay_user_id = #{payUserId,jdbcType=INTEGER},
+      pay_money = #{payMoney,jdbcType=DECIMAL},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      pay_comment = #{payComment,jdbcType=VARCHAR},
+      income_user_id = #{incomeUserId,jdbcType=INTEGER},
+      pay_user_nickname = #{payUserNickname,jdbcType=VARCHAR},
+      income_user_nickname = #{incomeUserNickname,jdbcType=VARCHAR}
+    where pay_id = #{payId,jdbcType=INTEGER}
+  </update>
+</mapper>

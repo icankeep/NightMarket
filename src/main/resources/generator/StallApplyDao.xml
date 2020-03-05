@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.StallApplyDao">
+  <resultMap id="BaseResultMap" type="generator.StallApply">
+    <id column="apply_id" jdbcType="INTEGER" property="applyId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="stall_id" jdbcType="INTEGER" property="stallId" />
+    <result column="stall_status" jdbcType="TINYINT" property="stallStatus" />
+    <result column="apply_time" jdbcType="TIMESTAMP" property="applyTime" />
+    <result column="other_user_id" jdbcType="INTEGER" property="otherUserId" />
+    <result column="deal" jdbcType="BIT" property="deal" />
+    <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
+    <result column="other_user_nickname" jdbcType="VARCHAR" property="otherUserNickname" />
+    <result column="pay_account" jdbcType="VARCHAR" property="payAccount" />
+    <result column="pay_order_number" jdbcType="VARCHAR" property="payOrderNumber" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    apply_id, user_id, stall_id, stall_status, apply_time, other_user_id, deal, user_nickname, 
+    other_user_nickname, pay_account, pay_order_number
+  </sql>
+  <select id="selectByExample" parameterType="generator.StallApplyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stall_apply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+    <if test="forUpdate != null and forUpdate == true">
+      for update
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from stall_apply
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from stall_apply
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="generator.StallApplyExample">
+    delete from stall_apply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="apply_id" keyProperty="applyId" parameterType="generator.StallApply" useGeneratedKeys="true">
+    insert into stall_apply (user_id, stall_id, stall_status, 
+      apply_time, other_user_id, deal, 
+      user_nickname, other_user_nickname, pay_account, 
+      pay_order_number)
+    values (#{userId,jdbcType=INTEGER}, #{stallId,jdbcType=INTEGER}, #{stallStatus,jdbcType=TINYINT}, 
+      #{applyTime,jdbcType=TIMESTAMP}, #{otherUserId,jdbcType=INTEGER}, #{deal,jdbcType=BIT}, 
+      #{userNickname,jdbcType=VARCHAR}, #{otherUserNickname,jdbcType=VARCHAR}, #{payAccount,jdbcType=VARCHAR}, 
+      #{payOrderNumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="apply_id" keyProperty="applyId" parameterType="generator.StallApply" useGeneratedKeys="true">
+    insert into stall_apply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="stallId != null">
+        stall_id,
+      </if>
+      <if test="stallStatus != null">
+        stall_status,
+      </if>
+      <if test="applyTime != null">
+        apply_time,
+      </if>
+      <if test="otherUserId != null">
+        other_user_id,
+      </if>
+      <if test="deal != null">
+        deal,
+      </if>
+      <if test="userNickname != null">
+        user_nickname,
+      </if>
+      <if test="otherUserNickname != null">
+        other_user_nickname,
+      </if>
+      <if test="payAccount != null">
+        pay_account,
+      </if>
+      <if test="payOrderNumber != null">
+        pay_order_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="stallId != null">
+        #{stallId,jdbcType=INTEGER},
+      </if>
+      <if test="stallStatus != null">
+        #{stallStatus,jdbcType=TINYINT},
+      </if>
+      <if test="applyTime != null">
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="otherUserId != null">
+        #{otherUserId,jdbcType=INTEGER},
+      </if>
+      <if test="deal != null">
+        #{deal,jdbcType=BIT},
+      </if>
+      <if test="userNickname != null">
+        #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="otherUserNickname != null">
+        #{otherUserNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="payAccount != null">
+        #{payAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="payOrderNumber != null">
+        #{payOrderNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="generator.StallApplyExample" resultType="java.lang.Long">
+    select count(*) from stall_apply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update stall_apply
+    <set>
+      <if test="record.applyId != null">
+        apply_id = #{record.applyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stallId != null">
+        stall_id = #{record.stallId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stallStatus != null">
+        stall_status = #{record.stallStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.applyTime != null">
+        apply_time = #{record.applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.otherUserId != null">
+        other_user_id = #{record.otherUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.deal != null">
+        deal = #{record.deal,jdbcType=BIT},
+      </if>
+      <if test="record.userNickname != null">
+        user_nickname = #{record.userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otherUserNickname != null">
+        other_user_nickname = #{record.otherUserNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payAccount != null">
+        pay_account = #{record.payAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payOrderNumber != null">
+        pay_order_number = #{record.payOrderNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update stall_apply
+    set apply_id = #{record.applyId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      stall_id = #{record.stallId,jdbcType=INTEGER},
+      stall_status = #{record.stallStatus,jdbcType=TINYINT},
+      apply_time = #{record.applyTime,jdbcType=TIMESTAMP},
+      other_user_id = #{record.otherUserId,jdbcType=INTEGER},
+      deal = #{record.deal,jdbcType=BIT},
+      user_nickname = #{record.userNickname,jdbcType=VARCHAR},
+      other_user_nickname = #{record.otherUserNickname,jdbcType=VARCHAR},
+      pay_account = #{record.payAccount,jdbcType=VARCHAR},
+      pay_order_number = #{record.payOrderNumber,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="generator.StallApply">
+    update stall_apply
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="stallId != null">
+        stall_id = #{stallId,jdbcType=INTEGER},
+      </if>
+      <if test="stallStatus != null">
+        stall_status = #{stallStatus,jdbcType=TINYINT},
+      </if>
+      <if test="applyTime != null">
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="otherUserId != null">
+        other_user_id = #{otherUserId,jdbcType=INTEGER},
+      </if>
+      <if test="deal != null">
+        deal = #{deal,jdbcType=BIT},
+      </if>
+      <if test="userNickname != null">
+        user_nickname = #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="otherUserNickname != null">
+        other_user_nickname = #{otherUserNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="payAccount != null">
+        pay_account = #{payAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="payOrderNumber != null">
+        pay_order_number = #{payOrderNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="generator.StallApply">
+    update stall_apply
+    set user_id = #{userId,jdbcType=INTEGER},
+      stall_id = #{stallId,jdbcType=INTEGER},
+      stall_status = #{stallStatus,jdbcType=TINYINT},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      other_user_id = #{otherUserId,jdbcType=INTEGER},
+      deal = #{deal,jdbcType=BIT},
+      user_nickname = #{userNickname,jdbcType=VARCHAR},
+      other_user_nickname = #{otherUserNickname,jdbcType=VARCHAR},
+      pay_account = #{payAccount,jdbcType=VARCHAR},
+      pay_order_number = #{payOrderNumber,jdbcType=VARCHAR}
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </update>
+</mapper>
