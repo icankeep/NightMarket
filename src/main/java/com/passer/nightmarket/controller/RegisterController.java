@@ -40,7 +40,7 @@ public class RegisterController {
         User user = new User();
         user.setNickname(nickname);
         user.setPassword(password);
-        user.setIsAdmin(userType == "0" ? false : true);
+        user.setIsAdmin("0".equals(userType) ? false : true);
         user.setAddress(address);
         user.setPhoneNumber(phoneNumber);
         user.setRealName(realName);
